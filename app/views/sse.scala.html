@@ -5,6 +5,13 @@
     <div>
         <button onclick="start()">start</button>
     </div>
+    <div id="content">
+        <div id="timer-section">
+            <h3 id="timer"></h3>
+        </div>
+        <ul id="data-list">
+        </ul>
+    </div>
 
 }
 
@@ -12,9 +19,9 @@
     function start(){
         if(!!window.EventSource){
             var source = new EventSource("@controllers.routes.Application.index()");
-
             source.addEventListener("message", function(event){
                 var data = JSON.parse(event.data);
+                $("#timer").text(data.data);
                 console.log(data.data);
             },false);
 

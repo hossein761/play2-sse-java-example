@@ -1,0 +1,27 @@
+@(message: String)
+
+@main("Welcome to Play") {
+
+    <div>
+        <button onclick="start()">start</button>
+    </div>
+
+}
+
+<script type="application/javascript">
+    function start(){
+        if(!!window.EventSource){
+            var source = new EventSource("@controllers.routes.Application.index()");
+
+            source.addEventListener("message", function(event){
+                var data = JSON.parse(event.data);
+                console.log(data.data);
+            },false);
+
+            source.addEventListener("close", function(event){
+                source.close();
+            },false);
+    }
+}
+
+</script>
